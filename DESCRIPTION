@@ -1,6 +1,6 @@
 Package: vhsR
 Title: Animated Terminal Demos for R via 'vhs'
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R:
     person("David", "Schoch", , "david.schoch@cynkra.com",
            role = c("aut", "cre"))
