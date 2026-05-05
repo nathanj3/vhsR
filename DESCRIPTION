@@ -6,10 +6,7 @@ Authors@R:
            role = c("aut", "cre"))
 Description: Wraps the 'vhs' command-line tool from Charm
     (<https://github.com/charmbracelet/vhs>) so that animated GIF demos
-    of R code can be produced from a single R expression. Bundled setup
-    helpers download 'vhs' and its runtime dependencies ('ttyd' and
-    'ffmpeg') into a per-user cache, so the package works without a
-    system-level installation.
+    of R code can be produced from a single R expression.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
