@@ -1,0 +1,27 @@
+Package: vhsR
+Title: Animated Terminal Demos for R via 'vhs'
+Version: 0.0.0.9000
+Authors@R:
+    person("David", "Schoch", , "david.schoch@cynkra.com",
+           role = c("aut", "cre"))
+Description: Wraps the 'vhs' command-line tool from Charm
+    (<https://github.com/charmbracelet/vhs>) so that animated GIF demos
+    of R code can be produced from a single R expression. Bundled setup
+    helpers download 'vhs' and its runtime dependencies ('ttyd' and
+    'ffmpeg') into a per-user cache, so the package works without a
+    system-level installation.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends:
+    R (>= 4.0)
+Imports:
+    cli,
+    fs,
+    processx,
+    rlang,
+    withr
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
