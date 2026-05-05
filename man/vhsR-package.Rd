@@ -8,6 +8,13 @@
 \description{
 Wraps the 'vhs' command-line tool from Charm (\url{https://github.com/charmbracelet/vhs}) so that animated GIF demos of R code can be produced from a single R expression.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://schochastics.github.io/vhsR/}
+}
+
+}
 \author{
 \strong{Maintainer}: David Schoch \email{david.schoch@cynkra.com}
 
