@@ -11,6 +11,9 @@
 # and get a recorded GIF inserted into the rendered document.
 
 knit_engine_vhsr <- function(options) {
+  if (isFALSE(options$eval)) {
+    return(knitr::engine_output(options, code = options$code, out = NULL))
+  }
   if (is.null(options$output) || !nzchar(options$output)) {
     cli::cli_abort(c(
       "{.code vhsr} chunk requires an {.arg output} option.",

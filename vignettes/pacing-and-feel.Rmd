@@ -69,7 +69,7 @@ record_demo({
 }, output = "demo.gif", typing_speed = "60ms")
 ```
 
-![](figures/pacing-mechanical.gif)
+![Recording with default pacing — uniform typing speed and no paragraph beats.](figures/pacing-mechanical.gif)
 
 The blank lines come through as empty `Type ""` directives — the
 recording moves on the next line immediately, no breathing room.
@@ -89,7 +89,7 @@ record_demo({
    typing_speed_jitter = 0.3)
 ```
 
-![](figures/pacing-jittered.gif)
+![Same recording with per-line typing-speed jitter applied — each line types at a slightly different cadence.](figures/pacing-jittered.gif)
 
 Each line types at a slightly different cadence. The recording reads
 less like a TTY playback and more like someone working at the prompt.
@@ -111,7 +111,7 @@ record_demo({
    line_pause = "600ms")
 ```
 
-![](figures/pacing-paragraph-pause.gif)
+![Recording with jitter and a one-second paragraph pause — blank lines become beats instead of empty Type directives.](figures/pacing-paragraph-pause.gif)
 
 The blank lines now produce a one-second beat instead of being typed
 as empty lines. The viewer has time to actually read the

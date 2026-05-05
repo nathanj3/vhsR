@@ -76,6 +76,35 @@ test_that("knit_engine_vhsr returns chunk output containing image-include", {
   expect_match(rendered, "![](demo.gif)", fixed = TRUE)
 })
 
+test_that("knit_engine_vhsr skips recording when eval = FALSE", {
+  skip_if_not_installed("knitr")
+  called <- FALSE
+  testthat::local_mocked_bindings(
+    record_demo_lines = function(...) {
+      called <<- TRUE
+      invisible(NULL)
+    }
+  )
+  out <- knit_engine_vhsr(chunk_options(
+    code   = c("x <- 1", "x"),
+    output = "demo.gif",
+    eval   = FALSE
+  ))
+  expect_false(called)
+  rendered <- paste(as.character(out), collapse = "\n")
+  expect_false(grepl("![](demo.gif)", rendered, fixed = TRUE))
+})
+
+test_that("knit_engine_vhsr does not require output= when eval = FALSE", {
+  skip_if_not_installed("knitr")
+  expect_no_error(
+    knit_engine_vhsr(chunk_options(
+      code = "1 + 1",
+      eval = FALSE
+    ))
+  )
+})
+
 test_that("vhsr engine is registered with knitr after package load", {
   skip_if_not_installed("knitr")
   expect_true("vhsr" %in% names(knitr::knit_engines$get()))
