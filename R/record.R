@@ -1,9 +1,10 @@
 #' Record a GIF demo of an R expression
 #'
 #' Captures the unevaluated R expression `expr`, types it line-by-line into
-#' a freshly-spawned `R --quiet --no-save` REPL inside a `vhs` recording,
-#' and writes the result to `output`. Setup is a one-liner: if the required
-#' binaries are missing, the function points to [vhsr_install()].
+#' a freshly-spawned R session inside a `vhs` recording, and writes the
+#' result to `output`. The R front-end is chosen by `backend` (see below).
+#' Setup is a one-liner: if the required binaries are missing, the
+#' function points to [vhsr_install()].
 #'
 #' @param expr An R expression (typically a `{ ... }` block). Captured
 #'   unevaluated; lines are typed verbatim into the REPL.
@@ -87,11 +88,7 @@ record_demo <- function(
       rprofile = rprofile
     )
   } else {
-    tape_str <- if (file.exists(tape)) {
-      paste(readLines(tape), collapse = "\n")
-    } else {
-      paste(tape, collapse = "\n")
-    }
+    tape_str <- paste(tape, collapse = "\n")
   }
 
   vhsr_run_tape(tape_str, quiet = quiet)

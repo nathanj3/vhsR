@@ -1,0 +1,13 @@
+^README\.Rmd$
+^LICENSE\.md$
+^\.Rbuildignore$
+^\.Rproj\.user$
+^\.Rhistory$
+^\.github$
+^\.claude$
+^.*\.gif$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^cran-comments\.md$
+^CRAN-RELEASE$

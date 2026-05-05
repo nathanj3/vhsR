@@ -24,6 +24,10 @@ backend_command <- function(backend) {
   )
 }
 
+escape_tape_string <- function(s) {
+  gsub('"', '\\"', s, fixed = TRUE)
+}
+
 build_tape <- function(
   r_lines,
   output,
@@ -45,16 +49,16 @@ build_tape <- function(
 
   env_lines <- character()
   if (!is.null(rprofile)) {
-    env_lines <- sprintf('Env R_PROFILE_USER "%s"', rprofile)
+    env_lines <- sprintf('Env R_PROFILE_USER "%s"', escape_tape_string(rprofile))
   }
 
   header <- c(
-    sprintf('Output "%s"', output),
+    sprintf('Output "%s"', escape_tape_string(output)),
     'Set Shell "bash"',
     sprintf('Set FontSize %d', as.integer(font_size)),
     sprintf('Set Width %d', as.integer(width)),
     sprintf('Set Height %d', as.integer(height)),
-    sprintf('Set Theme "%s"', theme),
+    sprintf('Set Theme "%s"', escape_tape_string(theme)),
     sprintf('Set TypingSpeed %s', typing_speed),
     sprintf('Set PlaybackSpeed %s', format(playback_speed)),
     env_lines,

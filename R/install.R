@@ -44,15 +44,20 @@ vhsr_install <- function(
 }
 
 install_one <- function(tool, cache, force, version) {
-  target <- file.path(cache, vhsr_exe(tool))
-  if (file.exists(target) && !force) {
-    cli::cli_alert_info("{tool}: already installed ({.path {target}})")
-    return(invisible(target))
+  existing <- switch(
+    tool,
+    vhs    = vhsr_vhs_path(),
+    ttyd   = vhsr_ttyd_path(),
+    ffmpeg = vhsr_ffmpeg_path()
+  )
+  if (nzchar(existing) && !force) {
+    cli::cli_alert_info("{tool}: already available ({.path {existing}})")
+    return(invisible(existing))
   }
   switch(
     tool,
-    vhs = install_vhs(cache, version),
-    ttyd = install_ttyd(cache, version),
+    vhs    = install_vhs(cache, version),
+    ttyd   = install_ttyd(cache, version),
     ffmpeg = install_ffmpeg(cache, version)
   )
 }

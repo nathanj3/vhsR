@@ -16,7 +16,14 @@ vhsr_run_tape <- function(tape, quiet = FALSE) {
     ))
   }
 
-  if (length(tape) == 1L && file.exists(tape)) {
+  looks_like_path <- length(tape) == 1L && !grepl("\n", tape, fixed = TRUE)
+  if (looks_like_path) {
+    if (!file.exists(tape)) {
+      cli::cli_abort(c(
+        "Tape file not found: {.path {tape}}",
+        i = "Pass a multi-line string for inline tape content."
+      ))
+    }
     tape_path <- tape
   } else {
     tape_path <- withr::local_tempfile(fileext = ".tape")

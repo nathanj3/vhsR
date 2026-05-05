@@ -8,22 +8,26 @@
 #' @return `TRUE` or `FALSE`.
 #' @export
 vhsr_check <- function() {
-  all(nzchar(c(vhsr_vhs_path(), vhsr_ttyd_path(), vhsr_ffmpeg_path())))
+  all(nzchar(required_tools()))
 }
 
 #' Report on the state of vhs and its dependencies
 #'
-#' Prints a one-line report per binary: name, version, where it was found
-#' (cache or system), and full path. When something is missing, prints a
-#' one-line `vhsr_install()` call to fix it.
+#' Prints two sections. The required binaries (`vhs`, `ttyd`, `ffmpeg`)
+#' are reported one per line with name, version, where they were found
+#' (cache or system), and full path. The optional highlighting tools
+#' (`arf`, `radian`, `colorout`) are reported below with install hints
+#' when missing. If any required binary is missing, a one-line
+#' [vhsr_install()] call is suggested at the end.
 #'
 #' @return Invisibly returns the result of [vhsr_check()].
 #' @export
 vhsr_doctor <- function() {
   cli::cli_h2("vhsR diagnostic")
-  report_one("vhs", vhsr_vhs_path())
-  report_one("ttyd", vhsr_ttyd_path())
-  report_one("ffmpeg", vhsr_ffmpeg_path())
+  paths <- required_tools()
+  for (name in names(paths)) {
+    report_one(name, paths[[name]])
+  }
 
   cli::cli_h3("Optional (syntax highlighting)")
   arf <- vhsr_arf_path()

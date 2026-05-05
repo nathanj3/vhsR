@@ -13,21 +13,16 @@ vhsr_cache_dir <- function() {
 }
 
 find_binary <- function(name, opt_key, env_key) {
-  o <- getOption(opt_key, default = "")
-  if (nzchar(o) && file.exists(o)) {
-    return(normalizePath(o, winslash = "/", mustWork = FALSE))
-  }
-  e <- Sys.getenv(env_key, unset = "")
-  if (nzchar(e) && file.exists(e)) {
-    return(normalizePath(e, winslash = "/", mustWork = FALSE))
-  }
-  cached <- file.path(vhsr_cache_dir(), vhsr_exe(name))
-  if (file.exists(cached)) {
-    return(normalizePath(cached, winslash = "/", mustWork = FALSE))
-  }
-  sys <- unname(Sys.which(name))
-  if (nzchar(sys)) {
-    return(normalizePath(sys, winslash = "/", mustWork = FALSE))
+  candidates <- c(
+    getOption(opt_key, default = ""),
+    Sys.getenv(env_key, unset = ""),
+    file.path(vhsr_cache_dir(), vhsr_exe(name)),
+    unname(Sys.which(name))
+  )
+  for (path in candidates) {
+    if (nzchar(path) && file.exists(path)) {
+      return(normalizePath(path, winslash = "/", mustWork = FALSE))
+    }
   }
   ""
 }
@@ -71,4 +66,12 @@ vhsr_radian_path <- function() {
 #' @export
 vhsr_arf_path <- function() {
   find_binary("arf", "vhsR.arf_path", "VHSR_ARF")
+}
+
+required_tools <- function() {
+  c(
+    vhs    = vhsr_vhs_path(),
+    ttyd   = vhsr_ttyd_path(),
+    ffmpeg = vhsr_ffmpeg_path()
+  )
 }
