@@ -50,7 +50,6 @@ build_tape <- function(
   playback_speed = 1,
   line_pause = "500ms",
   backend = "R",
-  rprofile = NULL,
   screenshots = NULL,
   start_pause = "800ms",
   end_pause = "500ms",
@@ -63,11 +62,6 @@ build_tape <- function(
 
   startup <- backend_command(backend)
 
-  env_lines <- character()
-  if (!is.null(rprofile)) {
-    env_lines <- sprintf('Env R_PROFILE_USER "%s"', escape_tape_string(rprofile))
-  }
-
   header <- c(
     sprintf('Output "%s"', escape_tape_string(output)),
     'Set Shell "bash"',
@@ -77,7 +71,6 @@ build_tape <- function(
     sprintf('Set Theme "%s"', escape_tape_string(theme)),
     sprintf('Set TypingSpeed %s', typing_speed),
     sprintf('Set PlaybackSpeed %s', format(playback_speed)),
-    env_lines,
     'Hide',
     sprintf('Type "%s"', startup),
     'Enter',

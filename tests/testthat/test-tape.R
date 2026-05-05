@@ -158,20 +158,6 @@ test_that("parse_duration_ms handles ms and s", {
   expect_error(parse_duration_ms("forever"), "Cannot parse duration")
 })
 
-test_that("build_tape emits Env R_PROFILE_USER when rprofile supplied", {
-  out <- build_tape(
-    "x <- 1",
-    output = "demo.gif",
-    rprofile = "/tmp/colorout.R"
-  )
-  expect_match(out, 'Env R_PROFILE_USER "/tmp/colorout.R"')
-})
-
-test_that("build_tape omits Env line when rprofile is NULL", {
-  out <- build_tape("x <- 1", output = "demo.gif")
-  expect_false(grepl("Env R_PROFILE_USER", out))
-})
-
 test_that("deparse_block splits a brace block into one line per statement", {
   e <- quote({
     x <- 1

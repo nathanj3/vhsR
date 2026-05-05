@@ -20,9 +20,7 @@
 #'   `"auto"` (the default) prefers `"arf"` (a Rust-based modern R
 #'   console with tree-sitter syntax highlighting and zero runtime
 #'   dependencies — see <https://github.com/eitsupi/arf>), falls back to
-#'   `"radian"` if found, otherwise plain `"R"`. When the resolved
-#'   backend is `"R"` and the `colorout` package is installed, it is
-#'   loaded automatically so the recording has highlighted output.
+#'   `"radian"` if found, otherwise plain `"R"`.
 #' @param start_pause Delay between R startup and the first typed line
 #'   (e.g. `"800ms"`).
 #' @param end_pause Delay between the last typed line and the (hidden)
@@ -119,13 +117,6 @@ record_demo_lines <- function(
 
   chosen <- resolve_backend(backend)
 
-  rprofile <- NULL
-  if (chosen == "R" && has_colorout()) {
-    rprofile <- tempfile(fileext = ".R")
-    writeLines("suppressMessages(library(colorout))", rprofile)
-    on.exit(unlink(rprofile), add = TRUE)
-  }
-
   tape_str <- build_tape(
     r_lines             = lines,
     output              = output,
@@ -137,7 +128,6 @@ record_demo_lines <- function(
     playback_speed      = playback_speed,
     line_pause          = line_pause,
     backend             = chosen,
-    rprofile            = rprofile,
     screenshots         = screenshots,
     start_pause         = start_pause,
     end_pause           = end_pause,

@@ -10,7 +10,6 @@ Description: Wraps the 'vhs' command-line tool from Charm
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Depends:
     R (>= 4.4)
 Imports:
@@ -18,7 +17,6 @@ Imports:
     processx,
     withr
 Suggests:
-    colorout,
     htmltools,
     knitr,
     rmarkdown,
@@ -26,3 +24,4 @@ Suggests:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://schochastics.github.io/vhsR/
+Config/roxygen2/version: 8.0.0

@@ -16,7 +16,7 @@ vhsr_check <- function() {
 #' Prints two sections. The required binaries (`vhs`, `ttyd`, `ffmpeg`)
 #' are reported one per line with name, version, where they were found
 #' (cache or system), and full path. The optional highlighting tools
-#' (`arf`, `radian`, `colorout`) are reported below with install hints
+#' (`arf`, `radian`) are reported below with install hints
 #' when missing. If any required binary is missing, a one-line
 #' [vhsr_install()] call is suggested at the end.
 #'
@@ -44,15 +44,6 @@ vhsr_doctor <- function() {
   } else {
     cli::cli_alert_warning(
       "radian: not found ({.code pip install radian} - fallback when arf is absent)"
-    )
-  }
-  if (has_colorout()) {
-    cli::cli_alert_success(
-      "colorout: installed (output coloring under plain R)"
-    )
-  } else {
-    cli::cli_alert_warning(
-      "colorout: not installed ({.run vhsr_install_colorout()} for output coloring under plain R)"
     )
   }
 

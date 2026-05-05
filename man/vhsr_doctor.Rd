@@ -13,7 +13,7 @@ Invisibly returns the result of \code{\link[=vhsr_check]{vhsr_check()}}.
 Prints two sections. The required binaries (\code{vhs}, \code{ttyd}, \code{ffmpeg})
 are reported one per line with name, version, where they were found
 (cache or system), and full path. The optional highlighting tools
-(\code{arf}, \code{radian}, \code{colorout}) are reported below with install hints
+(\code{arf}, \code{radian}) are reported below with install hints
 when missing. If any required binary is missing, a one-line
 \code{\link[=vhsr_install]{vhsr_install()}} call is suggested at the end.
 }

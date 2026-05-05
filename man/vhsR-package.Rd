@@ -18,5 +18,10 @@ Useful links:
 \author{
 \strong{Maintainer}: David Schoch \email{david.schoch@cynkra.com}
 
+Authors:
+\itemize{
+  \item David Schoch \email{david.schoch@cynkra.com}
+}
+
 }
 \keyword{internal}

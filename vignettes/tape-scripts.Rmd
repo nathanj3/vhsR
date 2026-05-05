@@ -129,9 +129,7 @@ Env DEMO_VAR "true"            # env var for the spawned shell
 Screenshot "frame.png"         # save a PNG of the current frame
 ```
 
-vhsR uses `Env` to inject `R_PROFILE_USER` when `colorout` is
-installed, and `Screenshot` is what `record_demo_screenshot()` calls
-through to.
+`Screenshot` is what `record_demo_screenshot()` calls through to.
 
 ## Gotchas vhsR works around for you
 

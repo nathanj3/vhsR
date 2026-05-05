@@ -10,7 +10,7 @@ vhsr_cache_dir()
 A length-1 character path. The directory is not created on read.
 }
 \description{
-The directory under \code{\link[tools:userdir]{tools::R_user_dir()}} where \code{vhsr_install()} places
+The directory under \code{\link[tools:R_user_dir]{tools::R_user_dir()}} where \code{vhsr_install()} places
 downloaded \code{vhs}, \code{ttyd}, and \code{ffmpeg} binaries. The path is
 platform-and-architecture-specific so a single \verb{$HOME} can serve multiple
 machines (e.g. via NFS).

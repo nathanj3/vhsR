@@ -4,8 +4,7 @@ test_that("vhsr_doctor reports all-missing state cleanly", {
     vhsr_ttyd_path   = function() "",
     vhsr_ffmpeg_path = function() "",
     vhsr_arf_path    = function() "",
-    vhsr_radian_path = function() "",
-    has_colorout     = function() FALSE
+    vhsr_radian_path = function() ""
   )
   expect_snapshot(out <- vhsr_doctor())
   expect_false(out)
@@ -23,7 +22,6 @@ test_that("vhsr_doctor reports a fully-equipped system", {
     vhsr_ffmpeg_path = function() "/system/bin/ffmpeg",
     vhsr_arf_path    = function() "/system/bin/arf",
     vhsr_radian_path = function() "/system/bin/radian",
-    has_colorout     = function() TRUE,
     get_version      = function(path) "v1.0.0"
   )
   expect_snapshot(

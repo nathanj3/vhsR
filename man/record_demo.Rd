@@ -46,9 +46,7 @@ format (\code{.gif}, \code{.mp4}, \code{.webm}).}
 \code{"auto"} (the default) prefers \code{"arf"} (a Rust-based modern R
 console with tree-sitter syntax highlighting and zero runtime
 dependencies — see \url{https://github.com/eitsupi/arf}), falls back to
-\code{"radian"} if found, otherwise plain \code{"R"}. When the resolved
-backend is \code{"R"} and the \code{colorout} package is installed, it is
-loaded automatically so the recording has highlighted output.}
+\code{"radian"} if found, otherwise plain \code{"R"}.}
 
 \item{start_pause}{Delay between R startup and the first typed line
 (e.g. \code{"800ms"}).}
@@ -61,7 +59,7 @@ of this duration instead of being typed.}
 
 \item{typing_speed_jitter}{Numeric in \verb{[0, 1]}; when positive, each
 typed line uses a speed sampled uniformly within \verb{±jitter} of
-\code{typing_speed}. Set \code{\link[base:Random]{base::set.seed()}} before calling for
+\code{typing_speed}. Set \code{\link[base:set.seed]{base::set.seed()}} before calling for
 reproducible jitter.}
 
 \item{tape}{Optional. A raw \code{.tape} script as a string (or path to a
