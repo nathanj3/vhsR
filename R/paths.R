@@ -66,3 +66,9 @@ vhsr_ffmpeg_path <- function() {
 vhsr_radian_path <- function() {
   find_binary("radian", "vhsR.radian_path", "VHSR_RADIAN")
 }
+
+#' @rdname vhsr_paths
+#' @export
+vhsr_arf_path <- function() {
+  find_binary("arf", "vhsR.arf_path", "VHSR_ARF")
+}

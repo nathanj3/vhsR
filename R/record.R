@@ -16,10 +16,12 @@
 #' @param playback_speed Playback rate multiplier (1 = real time).
 #' @param line_pause Delay after each line of R code, e.g. `"500ms"`.
 #' @param backend Which interactive R front-end to record.
-#'   `"auto"` (the default) picks `"radian"` when the `radian` binary is
-#'   available on `PATH`, falling back to `"R"`. When the resolved backend
-#'   is `"R"` and the `colorout` package is installed, it is loaded
-#'   automatically so the recording has highlighted output.
+#'   `"auto"` (the default) prefers `"arf"` (a Rust-based modern R
+#'   console with tree-sitter syntax highlighting and zero runtime
+#'   dependencies — see <https://github.com/eitsupi/arf>), falls back to
+#'   `"radian"` if found, otherwise plain `"R"`. When the resolved
+#'   backend is `"R"` and the `colorout` package is installed, it is
+#'   loaded automatically so the recording has highlighted output.
 #' @param tape Optional. A raw `.tape` script as a string (or path to a
 #'   `.tape` file). When supplied, `expr` and the styling args are ignored
 #'   and the tape is run verbatim.
@@ -44,7 +46,7 @@ record_demo <- function(
   typing_speed = "60ms",
   playback_speed = 1,
   line_pause = "500ms",
-  backend = c("auto", "R", "radian"),
+  backend = c("auto", "arf", "radian", "R"),
   tape = NULL,
   quiet = FALSE
 ) {

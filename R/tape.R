@@ -19,7 +19,8 @@ backend_command <- function(backend) {
   switch(
     backend,
     R = "R --quiet --no-save",
-    radian = "radian --no-save"
+    radian = "radian --no-save",
+    arf = "arf"
   )
 }
 

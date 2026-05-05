@@ -53,6 +53,13 @@ test_that("build_tape switches launch command for radian backend", {
   expect_false(grepl('Type "R --quiet --no-save"', out))
 })
 
+test_that("build_tape switches launch command for arf backend", {
+  out <- build_tape("x <- 1", output = "demo.gif", backend = "arf")
+  expect_match(out, 'Type "arf"')
+  expect_false(grepl('Type "R --quiet --no-save"', out))
+  expect_false(grepl('Type "radian --no-save"', out))
+})
+
 test_that("build_tape emits Env R_PROFILE_USER when rprofile supplied", {
   out <- build_tape(
     "x <- 1",

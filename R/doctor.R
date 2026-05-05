@@ -26,12 +26,20 @@ vhsr_doctor <- function() {
   report_one("ffmpeg", vhsr_ffmpeg_path())
 
   cli::cli_h3("Optional (syntax highlighting)")
+  arf <- vhsr_arf_path()
+  if (nzchar(arf)) {
+    report_one("arf", arf)
+  } else {
+    cli::cli_alert_warning(
+      "arf: not found ({.url https://github.com/eitsupi/arf} — modern Rust-based R console, preferred backend)"
+    )
+  }
   radian <- vhsr_radian_path()
   if (nzchar(radian)) {
     report_one("radian", radian)
   } else {
     cli::cli_alert_warning(
-      "radian: not found ({.code pip install radian} for input + output highlighting)"
+      "radian: not found ({.code pip install radian} — fallback when arf is absent)"
     )
   }
   if (has_colorout()) {
