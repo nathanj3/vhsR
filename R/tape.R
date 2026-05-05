@@ -28,6 +28,17 @@ escape_tape_string <- function(s) {
   gsub('"', '\\"', s, fixed = TRUE)
 }
 
+parse_duration_ms <- function(s) {
+  m <- regmatches(s, regexec("^([0-9.]+)\\s*(ms|s)$", s))[[1]]
+  if (length(m) != 3) {
+    cli::cli_abort(c(
+      "Cannot parse duration {.val {s}}.",
+      i = "Expected something like {.val 60ms} or {.val 1s}."
+    ))
+  }
+  as.numeric(m[2]) * if (m[3] == "s") 1000 else 1
+}
+
 build_tape <- function(
   r_lines,
   output,
@@ -39,7 +50,12 @@ build_tape <- function(
   playback_speed = 1,
   line_pause = "500ms",
   backend = "R",
-  rprofile = NULL
+  rprofile = NULL,
+  screenshots = NULL,
+  start_pause = "800ms",
+  end_pause = "500ms",
+  paragraph_pause = NULL,
+  typing_speed_jitter = 0
 ) {
   if (length(r_lines) == 0L) {
     cli::cli_abort("No R code to record.")
@@ -65,21 +81,48 @@ build_tape <- function(
     'Hide',
     sprintf('Type "%s"', startup),
     'Enter',
-    'Sleep 1s',
+    sprintf('Sleep %s', start_pause),
     'Ctrl+L',
     'Sleep 200ms',
     'Show'
   )
 
-  body <- unlist(lapply(r_lines, function(line) {
-    c(
-      paste("Type", quote_for_tape(line)),
+  base_ms <- parse_duration_ms(typing_speed)
+
+  body <- unlist(lapply(seq_along(r_lines), function(i) {
+    line <- r_lines[[i]]
+    if (!nzchar(trimws(line)) && !is.null(paragraph_pause)) {
+      return(sprintf('Sleep %s', paragraph_pause))
+    }
+    type_directive <- if (typing_speed_jitter > 0) {
+      sampled_ms <- max(1L, round(base_ms * stats::runif(
+        1L,
+        1 - typing_speed_jitter,
+        1 + typing_speed_jitter
+      )))
+      sprintf("Type@%dms %s", as.integer(sampled_ms), quote_for_tape(line))
+    } else {
+      paste("Type", quote_for_tape(line))
+    }
+    out <- c(
+      type_directive,
       "Enter",
       sprintf("Sleep %s", line_pause)
     )
+    for (sc in screenshots) {
+      if (isTRUE(sc$after_line == i)) {
+        out <- c(out, sprintf('Screenshot "%s"', escape_tape_string(sc$path)))
+      }
+    }
+    out
   }))
 
-  footer <- c('Hide', 'Type "q()"', "Enter", "Sleep 500ms")
+  footer <- c(
+    'Hide',
+    'Type "q()"',
+    "Enter",
+    sprintf("Sleep %s", end_pause)
+  )
 
   paste(c(header, body, footer), collapse = "\n")
 }

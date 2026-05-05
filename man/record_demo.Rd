@@ -15,6 +15,10 @@ record_demo(
   playback_speed = 1,
   line_pause = "500ms",
   backend = c("auto", "arf", "radian", "R"),
+  start_pause = "800ms",
+  end_pause = "500ms",
+  paragraph_pause = NULL,
+  typing_speed_jitter = 0,
   tape = NULL,
   quiet = FALSE
 )
@@ -45,6 +49,20 @@ dependencies — see \url{https://github.com/eitsupi/arf}), falls back to
 \code{"radian"} if found, otherwise plain \code{"R"}. When the resolved
 backend is \code{"R"} and the \code{colorout} package is installed, it is
 loaded automatically so the recording has highlighted output.}
+
+\item{start_pause}{Delay between R startup and the first typed line
+(e.g. \code{"800ms"}).}
+
+\item{end_pause}{Delay between the last typed line and the (hidden)
+\code{q()} exit (e.g. \code{"500ms"}).}
+
+\item{paragraph_pause}{If set, blank lines in \code{expr} produce a sleep
+of this duration instead of being typed.}
+
+\item{typing_speed_jitter}{Numeric in \verb{[0, 1]}; when positive, each
+typed line uses a speed sampled uniformly within \verb{±jitter} of
+\code{typing_speed}. Set \code{\link[base:Random]{base::set.seed()}} before calling for
+reproducible jitter.}
 
 \item{tape}{Optional. A raw \code{.tape} script as a string (or path to a
 \code{.tape} file). When supplied, \code{expr} and the styling args are ignored

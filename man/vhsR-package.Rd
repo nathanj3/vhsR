@@ -6,7 +6,7 @@
 \alias{vhsR-package}
 \title{vhsR: Animated Terminal Demos for R via 'vhs'}
 \description{
-Wraps the 'vhs' command-line tool from Charm (\url{https://github.com/charmbracelet/vhs}) so that animated GIF demos of R code can be produced from a single R expression. Bundled setup helpers download 'vhs' and its runtime dependencies ('ttyd' and 'ffmpeg') into a per-user cache, so the package works without a system-level installation.
+Wraps the 'vhs' command-line tool from Charm (\url{https://github.com/charmbracelet/vhs}) so that animated GIF demos of R code can be produced from a single R expression.
 }
 \author{
 \strong{Maintainer}: David Schoch \email{david.schoch@cynkra.com}
