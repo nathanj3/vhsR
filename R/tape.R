@@ -184,6 +184,14 @@ screenshots_after <- function(i, screenshots) {
 deparse_block <- function(expr) {
   if (is.call(expr) && identical(expr[[1L]], as.name("{"))) {
     stmts <- as.list(expr)[-1L]
+    # Brace blocks parsed with keep.source = TRUE (the interactive default)
+    # carry a list of srcrefs: the opening `{` plus one per statement.
+    # When present, walk those instead of deparsing — R's parser desugars
+    # `|>` into nested calls, so deparse() can't round-trip pipe chains.
+    srcrefs <- attr(expr, "srcref")
+    if (is.list(srcrefs) && length(srcrefs) == length(stmts) + 1L) {
+      return(srcref_lines(srcrefs[-1L]))
+    }
   } else {
     stmts <- list(expr)
   }
@@ -192,4 +200,22 @@ deparse_block <- function(expr) {
     function(x) paste(deparse(x, width.cutoff = 500L), collapse = " "),
     character(1)
   )
+}
+
+# Flatten a list of per-statement srcrefs into one source line per element.
+# Blank lines that originally separated two statements are reinserted by
+# inspecting the line-number gap, so `paragraph_pause` keeps working from
+# `record_demo({ ... })` as well as `record_demo_file()`.
+srcref_lines <- function(srcrefs) {
+  out <- character()
+  prev_end <- NULL
+  for (sr in srcrefs) {
+    start <- sr[1L]
+    if (!is.null(prev_end) && start - prev_end > 1L) {
+      out <- c(out, rep("", start - prev_end - 1L))
+    }
+    out <- c(out, as.character(sr))
+    prev_end <- sr[3L]
+  }
+  out
 }

@@ -171,3 +171,39 @@ test_that("deparse_block treats a non-brace expression as a single line", {
   e <- quote(mean(1:5))
   expect_equal(deparse_block(e), "mean(1:5)")
 })
+
+test_that("deparse_block preserves |> chains when srcrefs are attached", {
+  # parse(keep.source = TRUE) attaches the per-statement srcref list that
+  # substitute() carries through in record_demo({...}) calls. Without this,
+  # R's parser desugars `|>` into nested calls and we'd type the wrong code.
+  e <- parse(text = "{
+  mtcars |>
+    filter(cyl == 6) |>
+    arrange(desc(mpg))
+}", keep.source = TRUE)[[1L]]
+
+  expect_equal(
+    deparse_block(e),
+    c("mtcars |>", "    filter(cyl == 6) |>", "    arrange(desc(mpg))")
+  )
+})
+
+test_that("deparse_block preserves blank lines between statements", {
+  e <- parse(text = "{
+  x <- 1
+
+  y <- 2
+}", keep.source = TRUE)[[1L]]
+
+  expect_equal(deparse_block(e), c("x <- 1", "", "y <- 2"))
+})
+
+test_that("deparse_block falls back to deparse when no srcrefs attached", {
+  # quote() builds an expression without source info; we can't recover
+  # `|>` here and that's fine — it's the existing behaviour.
+  e <- quote({
+    x <- 1
+    y <- 2
+  })
+  expect_equal(deparse_block(e), c("x <- 1", "y <- 2"))
+})
