@@ -6,6 +6,8 @@
 \alias{vhsR-package}
 \title{vhsR: Animated Terminal Demos for R via 'vhs'}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Wraps the 'vhs' command-line tool from Charm (\url{https://github.com/charmbracelet/vhs}) so that animated GIF demos of R code can be produced from a single R expression.
 }
 \seealso{

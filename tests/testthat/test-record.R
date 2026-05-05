@@ -45,7 +45,7 @@ test_that("record_demo_file forwards the script lines and styling args", {
   record_demo_file(good, output = "out.gif", width = 800)
   expect_equal(captured$lines, c("x <- 1:5", "mean(x)"))
   expect_equal(captured$output, "out.gif")
-  expect_equal(captured$width, 800)
+  expect_equal(captured$opts$width, 800)
 })
 
 test_that("record_demo_file end-to-end produces a non-empty GIF", {

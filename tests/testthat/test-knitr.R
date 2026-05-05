@@ -37,8 +37,8 @@ test_that("knit_engine_vhsr forwards chunk options to record_demo_lines", {
   ))
   expect_equal(captured$lines, c("x <- 1", "x"))
   expect_equal(captured$output, "out.gif")
-  expect_equal(captured$width, 1000)
-  expect_equal(captured$theme, "Dracula")
+  expect_equal(captured$opts$width, 1000)
+  expect_equal(captured$opts$theme, "Dracula")
   expect_true(captured$quiet)
 })
 
@@ -58,7 +58,7 @@ test_that("knit_engine_vhsr only forwards recognised options", {
   ))
   # `width` is recognised; `eval`/`echo`/etc. (filled in by chunk_options)
   # are not in the forwarded set.
-  expect_equal(captured$width, 800)
+  expect_equal(captured$opts$width, 800)
   expect_null(captured$eval)
   expect_null(captured$echo)
 })

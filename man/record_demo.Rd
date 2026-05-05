@@ -7,18 +7,8 @@
 record_demo(
   expr,
   output = "demo.gif",
-  width = 1200,
-  height = 600,
-  font_size = 22,
-  theme = "Catppuccin Mocha",
-  typing_speed = "60ms",
-  playback_speed = 1,
-  line_pause = "500ms",
+  ...,
   backend = c("auto", "arf", "radian", "R"),
-  start_pause = "800ms",
-  end_pause = "500ms",
-  paragraph_pause = NULL,
-  typing_speed_jitter = 0,
   tape = NULL,
   quiet = FALSE
 )
@@ -30,37 +20,16 @@ unevaluated; lines are typed verbatim into the REPL.}
 \item{output}{Path to the output file. The extension determines the
 format (\code{.gif}, \code{.mp4}, \code{.webm}).}
 
-\item{width, height}{Terminal dimensions in pixels.}
-
-\item{font_size}{Font size in pixels.}
-
-\item{theme}{A vhs theme name (see vhs docs for the full list).}
-
-\item{typing_speed}{Per-keystroke delay, e.g. \code{"60ms"}.}
-
-\item{playback_speed}{Playback rate multiplier (1 = real time).}
-
-\item{line_pause}{Delay after each line of R code, e.g. \code{"500ms"}.}
+\item{...}{Pacing and styling arguments forwarded to \code{\link[=tape_options]{tape_options()}}.
+Pass any of \code{width}, \code{height}, \code{font_size}, \code{theme}, \code{typing_speed},
+\code{playback_speed}, \code{line_pause}, \code{start_pause}, \code{end_pause},
+\code{paragraph_pause}, \code{typing_speed_jitter} by name. Unknown names error.}
 
 \item{backend}{Which interactive R front-end to record.
 \code{"auto"} (the default) prefers \code{"arf"} (a Rust-based modern R
 console with tree-sitter syntax highlighting and zero runtime
 dependencies — see \url{https://github.com/eitsupi/arf}), falls back to
 \code{"radian"} if found, otherwise plain \code{"R"}.}
-
-\item{start_pause}{Delay between R startup and the first typed line
-(e.g. \code{"800ms"}).}
-
-\item{end_pause}{Delay between the last typed line and the (hidden)
-\code{q()} exit (e.g. \code{"500ms"}).}
-
-\item{paragraph_pause}{If set, blank lines in \code{expr} produce a sleep
-of this duration instead of being typed.}
-
-\item{typing_speed_jitter}{Numeric in \verb{[0, 1]}; when positive, each
-typed line uses a speed sampled uniformly within \verb{±jitter} of
-\code{typing_speed}. Set \code{\link[base:set.seed]{base::set.seed()}} before calling for
-reproducible jitter.}
 
 \item{tape}{Optional. A raw \code{.tape} script as a string (or path to a
 \code{.tape} file). When supplied, \code{expr} and the styling args are ignored
@@ -86,4 +55,7 @@ record_demo({
   head(cars, 3)
 }, output = "demo.gif")
 }
+}
+\seealso{
+\code{\link[=tape_options]{tape_options()}} for the full pacing/styling argument list.
 }
