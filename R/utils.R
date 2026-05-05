@@ -1,5 +1,3 @@
-`%||%` <- function(a, b) if (is.null(a)) b else a
-
 vhsr_os <- function() {
   sysname <- Sys.info()[["sysname"]]
   switch(
