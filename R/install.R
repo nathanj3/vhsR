@@ -46,8 +46,8 @@ vhsr_install <- function(
 install_one <- function(tool, cache, force, version) {
   existing <- switch(
     tool,
-    vhs    = vhsr_vhs_path(),
-    ttyd   = vhsr_ttyd_path(),
+    vhs = vhsr_vhs_path(),
+    ttyd = vhsr_ttyd_path(),
     ffmpeg = vhsr_ffmpeg_path()
   )
   if (nzchar(existing) && !force) {
@@ -56,8 +56,8 @@ install_one <- function(tool, cache, force, version) {
   }
   switch(
     tool,
-    vhs    = install_vhs(cache, version),
-    ttyd   = install_ttyd(cache, version),
+    vhs = install_vhs(cache, version),
+    ttyd = install_ttyd(cache, version),
     ffmpeg = install_ffmpeg(cache, version)
   )
 }
@@ -82,7 +82,7 @@ install_ttyd <- function(cache, version) {
   if (os == "darwin") {
     cli::cli_abort(c(
       "vhsR can't auto-install {.code ttyd} on macOS.",
-      i = "Run {.code brew install ttyd} — the official path on macOS.",
+      i = "Run {.code brew install ttyd} - the official path on macOS.",
       i = "{.fn vhsr_doctor} will pick it up from {.envvar PATH} afterwards."
     ))
   }
@@ -120,7 +120,7 @@ install_ffmpeg <- function(cache, version) {
   if (os == "darwin") {
     cli::cli_abort(c(
       "vhsR doesn't auto-install {.code ffmpeg} on macOS.",
-      i = "Run {.code brew install ffmpeg} — the standard path on macOS.",
+      i = "Run {.code brew install ffmpeg} - the standard path on macOS.",
       i = "{.fn vhsr_doctor} will pick it up from {.envvar PATH} afterwards."
     ))
   }

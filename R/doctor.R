@@ -35,7 +35,7 @@ vhsr_doctor <- function() {
     report_one("arf", arf)
   } else {
     cli::cli_alert_warning(
-      "arf: not found ({.url https://github.com/eitsupi/arf} — modern Rust-based R console, preferred backend)"
+      "arf: not found ({.url https://github.com/eitsupi/arf} - modern Rust-based R console, preferred backend)"
     )
   }
   radian <- vhsr_radian_path()
@@ -43,7 +43,7 @@ vhsr_doctor <- function() {
     report_one("radian", radian)
   } else {
     cli::cli_alert_warning(
-      "radian: not found ({.code pip install radian} — fallback when arf is absent)"
+      "radian: not found ({.code pip install radian} - fallback when arf is absent)"
     )
   }
   if (has_colorout()) {

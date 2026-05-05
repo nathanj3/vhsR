@@ -30,6 +30,14 @@ vhsr_run_tape <- function(tape, quiet = FALSE) {
     writeLines(tape, tape_path)
   }
 
+  # vhs uses go-rod under the hood, which leaves a `rod/` directory
+  # under tempdir() after each browser session. Clean it up so
+  # `R CMD check` doesn't flag it as detritus.
+  on.exit(
+    unlink(file.path(tempdir(), "rod"), recursive = TRUE, force = TRUE),
+    add = TRUE
+  )
+
   result <- processx::run(
     vhs,
     c(tape_path),

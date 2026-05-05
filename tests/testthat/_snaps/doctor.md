@@ -11,8 +11,8 @@
       x ffmpeg: not found
       
       -- Optional (syntax highlighting) 
-      ! arf: not found (<https://github.com/eitsupi/arf> — modern Rust-based R console, preferred backend)
-      ! radian: not found (`pip install radian` — fallback when arf is absent)
+      ! arf: not found (<https://github.com/eitsupi/arf> - modern Rust-based R console, preferred backend)
+      ! radian: not found (`pip install radian` - fallback when arf is absent)
       ! colorout: not installed (`vhsr_install_colorout()` for output coloring under plain R)
       i Run `vhsr_install()` to install missing required binaries.
 
