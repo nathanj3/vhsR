@@ -67,10 +67,12 @@ record_demo(
   height         = 500,
   font_size      = 20,
   theme          = "Dracula",
-  typing_speed   = "40ms",
+  typing_speed   = "100ms",
   playback_speed = 1.25
 )
 ```
+
+![](man/figures/fit.gif)
 
 ### Escape hatch
 
@@ -87,15 +89,3 @@ Enter
 Sleep 1s
 ')
 ```
-
-## How it works
-
-`record_demo()` captures the unevaluated R expression, deparses each
-statement into a single line, and assembles a `.tape` script that:
-
-1. Hides the recorder, starts `R --quiet --no-save`, waits for the prompt.
-2. Shows the recorder again, types each statement followed by `Enter`,
-   pausing for `line_pause` so output has time to render.
-3. Types `q()` to exit cleanly.
-
-The tape is fed to the cached `vhs` binary, which produces the final GIF.
