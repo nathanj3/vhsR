@@ -22,17 +22,10 @@ knit_engine_vhsr <- function(options) {
   }
 
   lines <- options$code
-  args <- list(
-    lines  = lines,
-    output = options$output
-  )
-  for (key in c(
-    "width", "height", "font_size", "theme",
-    "typing_speed", "playback_speed", "line_pause", "backend"
-  )) {
-    if (!is.null(options[[key]])) args[[key]] <- options[[key]]
-  }
-  args$quiet <- TRUE
+  opt_keys <- intersect(names(options), names(formals(tape_options)))
+  opts <- do.call(tape_options, options[opt_keys])
+  args <- list(lines = lines, output = options$output, opts = opts, quiet = TRUE)
+  if (!is.null(options$backend)) args$backend <- options$backend
 
   do.call(record_demo_lines, args)
 

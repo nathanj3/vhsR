@@ -1,5 +1,5 @@
 
-# vhsR
+# vhsR <a href="https://schochastics.github.io/vhsR/"><img src="man/figures/logo.png" align="right" height="139" alt="vhsR website" /></a>
 
 <!-- badges: start -->
 
